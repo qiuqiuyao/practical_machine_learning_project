@@ -116,179 +116,35 @@ $(document).ready(function () {
 </div>
 
 
+<div id="download-and-read-data." class="section level2">
+<h2>Download and read data.</h2>
+<div id="load-both-training-and-testing-data-into-r-and-specify-the-missing-values.-check-the-dimensions-of-column-names-of-both-datasets." class="section level3">
+<h3>Load both training and testing data into R and specify the missing values. Check the dimensions of column names of both datasets.</h3>
 <pre class="r"><code>training&lt;-read.csv(&quot;http://d396qusza40orc.cloudfront.net/predmachlearn/pml-training.csv&quot;,na.strings=c(&quot;NA&quot;,&quot;&quot;))
 testing&lt;-read.csv(&quot;http://d396qusza40orc.cloudfront.net/predmachlearn/pml-testing.csv&quot;,na.strings=c(&quot;NA&quot;,&quot;&quot;))
 dim(training)</code></pre>
 <pre><code>## [1] 19622   160</code></pre>
 <pre class="r"><code>dim(testing)</code></pre>
 <pre><code>## [1]  20 160</code></pre>
-<pre class="r"><code>names(training)</code></pre>
-<pre><code>##   [1] &quot;X&quot;                        &quot;user_name&quot;               
-##   [3] &quot;raw_timestamp_part_1&quot;     &quot;raw_timestamp_part_2&quot;    
-##   [5] &quot;cvtd_timestamp&quot;           &quot;new_window&quot;              
-##   [7] &quot;num_window&quot;               &quot;roll_belt&quot;               
-##   [9] &quot;pitch_belt&quot;               &quot;yaw_belt&quot;                
-##  [11] &quot;total_accel_belt&quot;         &quot;kurtosis_roll_belt&quot;      
-##  [13] &quot;kurtosis_picth_belt&quot;      &quot;kurtosis_yaw_belt&quot;       
-##  [15] &quot;skewness_roll_belt&quot;       &quot;skewness_roll_belt.1&quot;    
-##  [17] &quot;skewness_yaw_belt&quot;        &quot;max_roll_belt&quot;           
-##  [19] &quot;max_picth_belt&quot;           &quot;max_yaw_belt&quot;            
-##  [21] &quot;min_roll_belt&quot;            &quot;min_pitch_belt&quot;          
-##  [23] &quot;min_yaw_belt&quot;             &quot;amplitude_roll_belt&quot;     
-##  [25] &quot;amplitude_pitch_belt&quot;     &quot;amplitude_yaw_belt&quot;      
-##  [27] &quot;var_total_accel_belt&quot;     &quot;avg_roll_belt&quot;           
-##  [29] &quot;stddev_roll_belt&quot;         &quot;var_roll_belt&quot;           
-##  [31] &quot;avg_pitch_belt&quot;           &quot;stddev_pitch_belt&quot;       
-##  [33] &quot;var_pitch_belt&quot;           &quot;avg_yaw_belt&quot;            
-##  [35] &quot;stddev_yaw_belt&quot;          &quot;var_yaw_belt&quot;            
-##  [37] &quot;gyros_belt_x&quot;             &quot;gyros_belt_y&quot;            
-##  [39] &quot;gyros_belt_z&quot;             &quot;accel_belt_x&quot;            
-##  [41] &quot;accel_belt_y&quot;             &quot;accel_belt_z&quot;            
-##  [43] &quot;magnet_belt_x&quot;            &quot;magnet_belt_y&quot;           
-##  [45] &quot;magnet_belt_z&quot;            &quot;roll_arm&quot;                
-##  [47] &quot;pitch_arm&quot;                &quot;yaw_arm&quot;                 
-##  [49] &quot;total_accel_arm&quot;          &quot;var_accel_arm&quot;           
-##  [51] &quot;avg_roll_arm&quot;             &quot;stddev_roll_arm&quot;         
-##  [53] &quot;var_roll_arm&quot;             &quot;avg_pitch_arm&quot;           
-##  [55] &quot;stddev_pitch_arm&quot;         &quot;var_pitch_arm&quot;           
-##  [57] &quot;avg_yaw_arm&quot;              &quot;stddev_yaw_arm&quot;          
-##  [59] &quot;var_yaw_arm&quot;              &quot;gyros_arm_x&quot;             
-##  [61] &quot;gyros_arm_y&quot;              &quot;gyros_arm_z&quot;             
-##  [63] &quot;accel_arm_x&quot;              &quot;accel_arm_y&quot;             
-##  [65] &quot;accel_arm_z&quot;              &quot;magnet_arm_x&quot;            
-##  [67] &quot;magnet_arm_y&quot;             &quot;magnet_arm_z&quot;            
-##  [69] &quot;kurtosis_roll_arm&quot;        &quot;kurtosis_picth_arm&quot;      
-##  [71] &quot;kurtosis_yaw_arm&quot;         &quot;skewness_roll_arm&quot;       
-##  [73] &quot;skewness_pitch_arm&quot;       &quot;skewness_yaw_arm&quot;        
-##  [75] &quot;max_roll_arm&quot;             &quot;max_picth_arm&quot;           
-##  [77] &quot;max_yaw_arm&quot;              &quot;min_roll_arm&quot;            
-##  [79] &quot;min_pitch_arm&quot;            &quot;min_yaw_arm&quot;             
-##  [81] &quot;amplitude_roll_arm&quot;       &quot;amplitude_pitch_arm&quot;     
-##  [83] &quot;amplitude_yaw_arm&quot;        &quot;roll_dumbbell&quot;           
-##  [85] &quot;pitch_dumbbell&quot;           &quot;yaw_dumbbell&quot;            
-##  [87] &quot;kurtosis_roll_dumbbell&quot;   &quot;kurtosis_picth_dumbbell&quot; 
-##  [89] &quot;kurtosis_yaw_dumbbell&quot;    &quot;skewness_roll_dumbbell&quot;  
-##  [91] &quot;skewness_pitch_dumbbell&quot;  &quot;skewness_yaw_dumbbell&quot;   
-##  [93] &quot;max_roll_dumbbell&quot;        &quot;max_picth_dumbbell&quot;      
-##  [95] &quot;max_yaw_dumbbell&quot;         &quot;min_roll_dumbbell&quot;       
-##  [97] &quot;min_pitch_dumbbell&quot;       &quot;min_yaw_dumbbell&quot;        
-##  [99] &quot;amplitude_roll_dumbbell&quot;  &quot;amplitude_pitch_dumbbell&quot;
-## [101] &quot;amplitude_yaw_dumbbell&quot;   &quot;total_accel_dumbbell&quot;    
-## [103] &quot;var_accel_dumbbell&quot;       &quot;avg_roll_dumbbell&quot;       
-## [105] &quot;stddev_roll_dumbbell&quot;     &quot;var_roll_dumbbell&quot;       
-## [107] &quot;avg_pitch_dumbbell&quot;       &quot;stddev_pitch_dumbbell&quot;   
-## [109] &quot;var_pitch_dumbbell&quot;       &quot;avg_yaw_dumbbell&quot;        
-## [111] &quot;stddev_yaw_dumbbell&quot;      &quot;var_yaw_dumbbell&quot;        
-## [113] &quot;gyros_dumbbell_x&quot;         &quot;gyros_dumbbell_y&quot;        
-## [115] &quot;gyros_dumbbell_z&quot;         &quot;accel_dumbbell_x&quot;        
-## [117] &quot;accel_dumbbell_y&quot;         &quot;accel_dumbbell_z&quot;        
-## [119] &quot;magnet_dumbbell_x&quot;        &quot;magnet_dumbbell_y&quot;       
-## [121] &quot;magnet_dumbbell_z&quot;        &quot;roll_forearm&quot;            
-## [123] &quot;pitch_forearm&quot;            &quot;yaw_forearm&quot;             
-## [125] &quot;kurtosis_roll_forearm&quot;    &quot;kurtosis_picth_forearm&quot;  
-## [127] &quot;kurtosis_yaw_forearm&quot;     &quot;skewness_roll_forearm&quot;   
-## [129] &quot;skewness_pitch_forearm&quot;   &quot;skewness_yaw_forearm&quot;    
-## [131] &quot;max_roll_forearm&quot;         &quot;max_picth_forearm&quot;       
-## [133] &quot;max_yaw_forearm&quot;          &quot;min_roll_forearm&quot;        
-## [135] &quot;min_pitch_forearm&quot;        &quot;min_yaw_forearm&quot;         
-## [137] &quot;amplitude_roll_forearm&quot;   &quot;amplitude_pitch_forearm&quot; 
-## [139] &quot;amplitude_yaw_forearm&quot;    &quot;total_accel_forearm&quot;     
-## [141] &quot;var_accel_forearm&quot;        &quot;avg_roll_forearm&quot;        
-## [143] &quot;stddev_roll_forearm&quot;      &quot;var_roll_forearm&quot;        
-## [145] &quot;avg_pitch_forearm&quot;        &quot;stddev_pitch_forearm&quot;    
-## [147] &quot;var_pitch_forearm&quot;        &quot;avg_yaw_forearm&quot;         
-## [149] &quot;stddev_yaw_forearm&quot;       &quot;var_yaw_forearm&quot;         
-## [151] &quot;gyros_forearm_x&quot;          &quot;gyros_forearm_y&quot;         
-## [153] &quot;gyros_forearm_z&quot;          &quot;accel_forearm_x&quot;         
-## [155] &quot;accel_forearm_y&quot;          &quot;accel_forearm_z&quot;         
-## [157] &quot;magnet_forearm_x&quot;         &quot;magnet_forearm_y&quot;        
-## [159] &quot;magnet_forearm_z&quot;         &quot;classe&quot;</code></pre>
-<pre class="r"><code>names(testing)</code></pre>
-<pre><code>##   [1] &quot;X&quot;                        &quot;user_name&quot;               
-##   [3] &quot;raw_timestamp_part_1&quot;     &quot;raw_timestamp_part_2&quot;    
-##   [5] &quot;cvtd_timestamp&quot;           &quot;new_window&quot;              
-##   [7] &quot;num_window&quot;               &quot;roll_belt&quot;               
-##   [9] &quot;pitch_belt&quot;               &quot;yaw_belt&quot;                
-##  [11] &quot;total_accel_belt&quot;         &quot;kurtosis_roll_belt&quot;      
-##  [13] &quot;kurtosis_picth_belt&quot;      &quot;kurtosis_yaw_belt&quot;       
-##  [15] &quot;skewness_roll_belt&quot;       &quot;skewness_roll_belt.1&quot;    
-##  [17] &quot;skewness_yaw_belt&quot;        &quot;max_roll_belt&quot;           
-##  [19] &quot;max_picth_belt&quot;           &quot;max_yaw_belt&quot;            
-##  [21] &quot;min_roll_belt&quot;            &quot;min_pitch_belt&quot;          
-##  [23] &quot;min_yaw_belt&quot;             &quot;amplitude_roll_belt&quot;     
-##  [25] &quot;amplitude_pitch_belt&quot;     &quot;amplitude_yaw_belt&quot;      
-##  [27] &quot;var_total_accel_belt&quot;     &quot;avg_roll_belt&quot;           
-##  [29] &quot;stddev_roll_belt&quot;         &quot;var_roll_belt&quot;           
-##  [31] &quot;avg_pitch_belt&quot;           &quot;stddev_pitch_belt&quot;       
-##  [33] &quot;var_pitch_belt&quot;           &quot;avg_yaw_belt&quot;            
-##  [35] &quot;stddev_yaw_belt&quot;          &quot;var_yaw_belt&quot;            
-##  [37] &quot;gyros_belt_x&quot;             &quot;gyros_belt_y&quot;            
-##  [39] &quot;gyros_belt_z&quot;             &quot;accel_belt_x&quot;            
-##  [41] &quot;accel_belt_y&quot;             &quot;accel_belt_z&quot;            
-##  [43] &quot;magnet_belt_x&quot;            &quot;magnet_belt_y&quot;           
-##  [45] &quot;magnet_belt_z&quot;            &quot;roll_arm&quot;                
-##  [47] &quot;pitch_arm&quot;                &quot;yaw_arm&quot;                 
-##  [49] &quot;total_accel_arm&quot;          &quot;var_accel_arm&quot;           
-##  [51] &quot;avg_roll_arm&quot;             &quot;stddev_roll_arm&quot;         
-##  [53] &quot;var_roll_arm&quot;             &quot;avg_pitch_arm&quot;           
-##  [55] &quot;stddev_pitch_arm&quot;         &quot;var_pitch_arm&quot;           
-##  [57] &quot;avg_yaw_arm&quot;              &quot;stddev_yaw_arm&quot;          
-##  [59] &quot;var_yaw_arm&quot;              &quot;gyros_arm_x&quot;             
-##  [61] &quot;gyros_arm_y&quot;              &quot;gyros_arm_z&quot;             
-##  [63] &quot;accel_arm_x&quot;              &quot;accel_arm_y&quot;             
-##  [65] &quot;accel_arm_z&quot;              &quot;magnet_arm_x&quot;            
-##  [67] &quot;magnet_arm_y&quot;             &quot;magnet_arm_z&quot;            
-##  [69] &quot;kurtosis_roll_arm&quot;        &quot;kurtosis_picth_arm&quot;      
-##  [71] &quot;kurtosis_yaw_arm&quot;         &quot;skewness_roll_arm&quot;       
-##  [73] &quot;skewness_pitch_arm&quot;       &quot;skewness_yaw_arm&quot;        
-##  [75] &quot;max_roll_arm&quot;             &quot;max_picth_arm&quot;           
-##  [77] &quot;max_yaw_arm&quot;              &quot;min_roll_arm&quot;            
-##  [79] &quot;min_pitch_arm&quot;            &quot;min_yaw_arm&quot;             
-##  [81] &quot;amplitude_roll_arm&quot;       &quot;amplitude_pitch_arm&quot;     
-##  [83] &quot;amplitude_yaw_arm&quot;        &quot;roll_dumbbell&quot;           
-##  [85] &quot;pitch_dumbbell&quot;           &quot;yaw_dumbbell&quot;            
-##  [87] &quot;kurtosis_roll_dumbbell&quot;   &quot;kurtosis_picth_dumbbell&quot; 
-##  [89] &quot;kurtosis_yaw_dumbbell&quot;    &quot;skewness_roll_dumbbell&quot;  
-##  [91] &quot;skewness_pitch_dumbbell&quot;  &quot;skewness_yaw_dumbbell&quot;   
-##  [93] &quot;max_roll_dumbbell&quot;        &quot;max_picth_dumbbell&quot;      
-##  [95] &quot;max_yaw_dumbbell&quot;         &quot;min_roll_dumbbell&quot;       
-##  [97] &quot;min_pitch_dumbbell&quot;       &quot;min_yaw_dumbbell&quot;        
-##  [99] &quot;amplitude_roll_dumbbell&quot;  &quot;amplitude_pitch_dumbbell&quot;
-## [101] &quot;amplitude_yaw_dumbbell&quot;   &quot;total_accel_dumbbell&quot;    
-## [103] &quot;var_accel_dumbbell&quot;       &quot;avg_roll_dumbbell&quot;       
-## [105] &quot;stddev_roll_dumbbell&quot;     &quot;var_roll_dumbbell&quot;       
-## [107] &quot;avg_pitch_dumbbell&quot;       &quot;stddev_pitch_dumbbell&quot;   
-## [109] &quot;var_pitch_dumbbell&quot;       &quot;avg_yaw_dumbbell&quot;        
-## [111] &quot;stddev_yaw_dumbbell&quot;      &quot;var_yaw_dumbbell&quot;        
-## [113] &quot;gyros_dumbbell_x&quot;         &quot;gyros_dumbbell_y&quot;        
-## [115] &quot;gyros_dumbbell_z&quot;         &quot;accel_dumbbell_x&quot;        
-## [117] &quot;accel_dumbbell_y&quot;         &quot;accel_dumbbell_z&quot;        
-## [119] &quot;magnet_dumbbell_x&quot;        &quot;magnet_dumbbell_y&quot;       
-## [121] &quot;magnet_dumbbell_z&quot;        &quot;roll_forearm&quot;            
-## [123] &quot;pitch_forearm&quot;            &quot;yaw_forearm&quot;             
-## [125] &quot;kurtosis_roll_forearm&quot;    &quot;kurtosis_picth_forearm&quot;  
-## [127] &quot;kurtosis_yaw_forearm&quot;     &quot;skewness_roll_forearm&quot;   
-## [129] &quot;skewness_pitch_forearm&quot;   &quot;skewness_yaw_forearm&quot;    
-## [131] &quot;max_roll_forearm&quot;         &quot;max_picth_forearm&quot;       
-## [133] &quot;max_yaw_forearm&quot;          &quot;min_roll_forearm&quot;        
-## [135] &quot;min_pitch_forearm&quot;        &quot;min_yaw_forearm&quot;         
-## [137] &quot;amplitude_roll_forearm&quot;   &quot;amplitude_pitch_forearm&quot; 
-## [139] &quot;amplitude_yaw_forearm&quot;    &quot;total_accel_forearm&quot;     
-## [141] &quot;var_accel_forearm&quot;        &quot;avg_roll_forearm&quot;        
-## [143] &quot;stddev_roll_forearm&quot;      &quot;var_roll_forearm&quot;        
-## [145] &quot;avg_pitch_forearm&quot;        &quot;stddev_pitch_forearm&quot;    
-## [147] &quot;var_pitch_forearm&quot;        &quot;avg_yaw_forearm&quot;         
-## [149] &quot;stddev_yaw_forearm&quot;       &quot;var_yaw_forearm&quot;         
-## [151] &quot;gyros_forearm_x&quot;          &quot;gyros_forearm_y&quot;         
-## [153] &quot;gyros_forearm_z&quot;          &quot;accel_forearm_x&quot;         
-## [155] &quot;accel_forearm_y&quot;          &quot;accel_forearm_z&quot;         
-## [157] &quot;magnet_forearm_x&quot;         &quot;magnet_forearm_y&quot;        
-## [159] &quot;magnet_forearm_z&quot;         &quot;problem_id&quot;</code></pre>
+<pre class="r"><code>names(training)
+names(testing)</code></pre>
+</div>
+</div>
+<div id="preprocess" class="section level2">
+<h2>Preprocess</h2>
+<div id="first-we-need-to-make-sure-that-training-and-testing-datasets-have-identical-column-names." class="section level3">
+<h3>First, we need to make sure that training and testing datasets have identical column names.</h3>
 <pre class="r"><code>all.equal(colnames(training)[1:dim(training)[2]-1],colnames(testing)[1:dim(testing)[2]-1])</code></pre>
 <pre><code>## [1] TRUE</code></pre>
+</div>
+<div id="according-to-the-study-the-first-seven-variables-are-irrelevant-to-the-current-analysis.-therefore-i-remove-the-first-seven-variables-from-the-original-dataset." class="section level3">
+<h3>According to the study , the first seven variables are irrelevant to the current analysis. Therefore, I remove the first seven variables from the original dataset.</h3>
 <pre class="r"><code>trainingSub&lt;-training[,-c(1:7)]
-testingSub&lt;-testing[,-c(1:7)]
-library(caret)</code></pre>
+testingSub&lt;-testing[,-c(1:7)]</code></pre>
+</div>
+<div id="divide-the-original-training-dataset-further-into-one-training-and-one-testing-dataset.-this-new-training-data-will-be-used-to-train-the-algorithm-which-will-then-be-applied-to-the-new-testing-data." class="section level3">
+<h3>Divide the original training dataset further into one training and one testing dataset. This new training data will be used to train the algorithm which will then be applied to the new testing data.</h3>
+<pre class="r"><code>library(caret)</code></pre>
 <pre><code>## Warning: package 'caret' was built under R version 3.2.3</code></pre>
 <pre><code>## Loading required package: lattice</code></pre>
 <pre><code>## Loading required package: ggplot2</code></pre>
@@ -300,14 +156,26 @@ dim(mytrain)</code></pre>
 <pre><code>## [1] 11776   153</code></pre>
 <pre class="r"><code>dim(mytest)</code></pre>
 <pre><code>## [1] 7846  153</code></pre>
+</div>
+<div id="remove-the-columns-with-missing-values-from-the-original-training-dataset." class="section level3">
+<h3>Remove the columns with missing values from the original training dataset.</h3>
 <pre class="r"><code>mytrainCmplt&lt;-mytrain[,colSums(is.na(mytrain))==0]
 mytestCmplt&lt;-mytest[,names(mytest) %in% names(mytrainCmplt)]
 testingCmplt&lt;-testingSub[,names(testingSub) %in% names(mytrainCmplt)]
 testingCmplt&lt;-cbind(testingCmplt,testingSub[,153])
-colnames(testingCmplt)[53]&lt;-&quot;problem_id&quot;
-nearzv&lt;-nearZeroVar(mytrainCmplt,saveMetrics=TRUE)
+colnames(testingCmplt)[53]&lt;-&quot;classe&quot;</code></pre>
+</div>
+<div id="check-to-see-whether-there-are-any-variables-that-have-variance-close-to-zero.-if-so-remove-them-from-the-training-dataset.-the-following-results-demonstrate-there-are-no-such-variables-in-the-training-dataset." class="section level3">
+<h3>Check to see whether there are any variables that have variance close to zero. If so, remove them from the training dataset. The following results demonstrate there are no such variables in the training dataset.</h3>
+<pre class="r"><code>nearzv&lt;-nearZeroVar(mytrainCmplt,saveMetrics=TRUE)
 sum(nearzv$nzv)</code></pre>
 <pre><code>## [1] 0</code></pre>
+</div>
+</div>
+<div id="evaluation" class="section level2">
+<h2>Evaluation</h2>
+<div id="classification-tree" class="section level3">
+<h3>Classification tree</h3>
 <pre class="r"><code>set.seed(123)
 modFit1&lt;-train(classe~.,method=&quot;rpart&quot;,data=mytrainCmplt)</code></pre>
 <pre><code>## Loading required package: rpart</code></pre>
@@ -317,92 +185,97 @@ modFit1&lt;-train(classe~.,method=&quot;rpart&quot;,data=mytrainCmplt)</code></p
 ## node), split, n, loss, yval, (yprob)
 ##       * denotes terminal node
 ## 
-##  1) root 11776 8428 A (0.28 0.19 0.17 0.16 0.18)  
-##    2) roll_belt&lt; 130.5 10770 7432 A (0.31 0.21 0.19 0.18 0.11)  
-##      4) pitch_forearm&lt; -33.6 947    6 A (0.99 0.0063 0 0 0) *
-##      5) pitch_forearm&gt;=-33.6 9823 7426 A (0.24 0.23 0.21 0.2 0.12)  
-##       10) magnet_dumbbell_y&lt; 438.5 8288 5935 A (0.28 0.18 0.24 0.19 0.1)  
-##         20) roll_forearm&lt; 121.5 5129 3024 A (0.41 0.18 0.18 0.17 0.06) *
-##         21) roll_forearm&gt;=121.5 3159 2111 C (0.079 0.18 0.33 0.23 0.18) *
-##       11) magnet_dumbbell_y&gt;=438.5 1535  766 B (0.029 0.5 0.044 0.23 0.2) *
-##    3) roll_belt&gt;=130.5 1006   10 E (0.0099 0 0 0 0.99) *</code></pre>
+##   1) root 11776 8428 A (0.28 0.19 0.17 0.16 0.18)  
+##     2) roll_belt&lt; 130.5 10774 7436 A (0.31 0.21 0.19 0.18 0.11)  
+##       4) pitch_forearm&lt; -33.95 976    4 A (1 0.0041 0 0 0) *
+##       5) pitch_forearm&gt;=-33.95 9798 7432 A (0.24 0.23 0.21 0.2 0.12)  
+##        10) yaw_belt&gt;=169.5 485   48 A (0.9 0.049 0 0.039 0.01) *
+##        11) yaw_belt&lt; 169.5 9313 7062 B (0.21 0.24 0.22 0.21 0.13)  
+##          22) magnet_dumbbell_z&lt; -93.5 1086  445 A (0.59 0.28 0.051 0.063 0.021) *
+##          23) magnet_dumbbell_z&gt;=-93.5 8227 6228 C (0.16 0.24 0.24 0.22 0.14)  
+##            46) magnet_dumbbell_y&lt; 288.5 3575 2151 C (0.18 0.15 0.4 0.15 0.11) *
+##            47) magnet_dumbbell_y&gt;=288.5 4652 3236 B (0.14 0.3 0.12 0.28 0.16)  
+##              94) accel_dumbbell_y&gt;=-45.5 4292 2900 B (0.15 0.32 0.064 0.3 0.16)  
+##               188) total_accel_dumbbell&gt;=5.5 3086 1816 B (0.1 0.41 0.087 0.2 0.2) *
+##               189) total_accel_dumbbell&lt; 5.5 1206  549 D (0.27 0.1 0.0075 0.54 0.076) *
+##              95) accel_dumbbell_y&lt; -45.5 360   61 C (0 0.067 0.83 0.025 0.078) *
+##     3) roll_belt&gt;=130.5 1002   10 E (0.01 0 0 0 0.99) *</code></pre>
 <pre class="r"><code>predtree&lt;-predict(modFit1,newdata=mytestCmplt)
 confusionMatrix(predtree,mytestCmplt$classe)</code></pre>
 <pre><code>## Confusion Matrix and Statistics
 ## 
 ##           Reference
 ## Prediction    A    B    C    D    E
-##          A 2020  619  645  572  215
-##          B   43  524   41  221  187
-##          C  165  375  682  493  405
-##          D    0    0    0    0    0
-##          E    4    0    0    0  635
+##          A 1343  252   34   65   22
+##          B  224  836  196  421  437
+##          C  460  363 1131  401  295
+##          D  201   67    7  399   49
+##          E    4    0    0    0  639
 ## 
 ## Overall Statistics
-##                                          
-##                Accuracy : 0.4921         
-##                  95% CI : (0.481, 0.5032)
-##     No Information Rate : 0.2845         
-##     P-Value [Acc &gt; NIR] : &lt; 2.2e-16      
-##                                          
-##                   Kappa : 0.3363         
-##  Mcnemar's Test P-Value : NA             
+##                                           
+##                Accuracy : 0.5542          
+##                  95% CI : (0.5431, 0.5652)
+##     No Information Rate : 0.2845          
+##     P-Value [Acc &gt; NIR] : &lt; 2.2e-16       
+##                                           
+##                   Kappa : 0.4403          
+##  Mcnemar's Test P-Value : &lt; 2.2e-16       
 ## 
 ## Statistics by Class:
 ## 
 ##                      Class: A Class: B Class: C Class: D Class: E
-## Sensitivity            0.9050  0.34519  0.49854   0.0000  0.44036
-## Specificity            0.6347  0.92225  0.77802   1.0000  0.99938
-## Pos Pred Value         0.4962  0.51575  0.32170      NaN  0.99374
-## Neg Pred Value         0.9438  0.85447  0.88020   0.8361  0.88803
-## Prevalence             0.2845  0.19347  0.17436   0.1639  0.18379
-## Detection Rate         0.2575  0.06679  0.08692   0.0000  0.08093
-## Detection Prevalence   0.5189  0.12949  0.27020   0.0000  0.08144
-## Balanced Accuracy      0.7698  0.63372  0.63828   0.5000  0.71987</code></pre>
-<pre class="r"><code>set.seed(234)
-library(randomForest)</code></pre>
-<pre><code>## Warning: package 'randomForest' was built under R version 3.2.3</code></pre>
-<pre><code>## randomForest 4.6-12</code></pre>
-<pre><code>## Type rfNews() to see new features/changes/bug fixes.</code></pre>
-<pre><code>## 
-## Attaching package: 'randomForest'</code></pre>
-<pre><code>## The following object is masked from 'package:ggplot2':
-## 
-##     margin</code></pre>
-<pre class="r"><code>modFit2&lt;-randomForest(classe~.,data=mytrainCmplt)
+## Sensitivity            0.6017   0.5507   0.8268  0.31026  0.44313
+## Specificity            0.9336   0.7980   0.7655  0.95061  0.99938
+## Pos Pred Value         0.7826   0.3955   0.4268  0.55187  0.99378
+## Neg Pred Value         0.8550   0.8810   0.9544  0.87547  0.88852
+## Prevalence             0.2845   0.1935   0.1744  0.16391  0.18379
+## Detection Rate         0.1712   0.1066   0.1441  0.05085  0.08144
+## Detection Prevalence   0.2187   0.2694   0.3378  0.09215  0.08195
+## Balanced Accuracy      0.7676   0.6744   0.7961  0.63044  0.72125</code></pre>
+<p>The accuracy is low around 0.5 suggesting classification tree is not a desirable algorithm in this case.</p>
+</div>
+<div id="random-forest" class="section level3">
+<h3>Random forest</h3>
+<pre class="r"><code>library(randomForest)
+set.seed(234)
+modFit2&lt;-randomForest(classe~.,data=mytrainCmplt)
 predrf&lt;-predict(modFit2,newdata=mytestCmplt,type=&quot;class&quot;)
 confusionMatrix(predrf,mytestCmplt$classe)</code></pre>
 <pre><code>## Confusion Matrix and Statistics
 ## 
 ##           Reference
 ## Prediction    A    B    C    D    E
-##          A 2232    4    0    0    0
-##          B    0 1512    5    0    0
-##          C    0    2 1363    8    2
-##          D    0    0    0 1278   12
-##          E    0    0    0    0 1428
+##          A 2230    5    0    0    0
+##          B    1 1509   14    0    1
+##          C    0    4 1352   18    2
+##          D    0    0    2 1268    1
+##          E    1    0    0    0 1438
 ## 
 ## Overall Statistics
 ##                                           
-##                Accuracy : 0.9958          
-##                  95% CI : (0.9941, 0.9971)
+##                Accuracy : 0.9938          
+##                  95% CI : (0.9918, 0.9954)
 ##     No Information Rate : 0.2845          
 ##     P-Value [Acc &gt; NIR] : &lt; 2.2e-16       
 ##                                           
-##                   Kappa : 0.9947          
+##                   Kappa : 0.9921          
 ##  Mcnemar's Test P-Value : NA              
 ## 
 ## Statistics by Class:
 ## 
 ##                      Class: A Class: B Class: C Class: D Class: E
-## Sensitivity            1.0000   0.9960   0.9963   0.9938   0.9903
-## Specificity            0.9993   0.9992   0.9981   0.9982   1.0000
-## Pos Pred Value         0.9982   0.9967   0.9913   0.9907   1.0000
-## Neg Pred Value         1.0000   0.9991   0.9992   0.9988   0.9978
+## Sensitivity            0.9991   0.9941   0.9883   0.9860   0.9972
+## Specificity            0.9991   0.9975   0.9963   0.9995   0.9998
+## Pos Pred Value         0.9978   0.9895   0.9826   0.9976   0.9993
+## Neg Pred Value         0.9996   0.9986   0.9975   0.9973   0.9994
 ## Prevalence             0.2845   0.1935   0.1744   0.1639   0.1838
-## Detection Rate         0.2845   0.1927   0.1737   0.1629   0.1820
-## Detection Prevalence   0.2850   0.1933   0.1752   0.1644   0.1820
-## Balanced Accuracy      0.9996   0.9976   0.9972   0.9960   0.9951</code></pre>
+## Detection Rate         0.2842   0.1923   0.1723   0.1616   0.1833
+## Detection Prevalence   0.2849   0.1944   0.1754   0.1620   0.1834
+## Balanced Accuracy      0.9991   0.9958   0.9923   0.9928   0.9985</code></pre>
+<p>Using random forest, I obtain a high accuracy of classification. Therefore, I prefer random forest to classification tree. I applied random forest to the testing dataset provided by Professor Leek and correctly predicted all the classifications.</p>
+</div>
+</div>
 
 
 

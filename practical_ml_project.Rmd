@@ -70,15 +70,12 @@ The accuracy is low around 0.5 suggesting classification tree is not a desirable
 
 ###Random forest
 ```{r,cache=TRUE}
-set.seed(234)
 library(randomForest)
+set.seed(234)
 modFit2<-randomForest(classe~.,data=mytrainCmplt)
 predrf<-predict(modFit2,newdata=mytestCmplt,type="class")
 confusionMatrix(predrf,mytestCmplt$classe)
 ```
 
-Using random forest, I obtain a high accuracy of classification (0.9958). Therefore, I prefer random forest to classification tree.
-
-##Run random forest against the original testing dataset.
-print(predict(modFit2,newdata=testingCmplt))
+Using random forest, I obtain a high accuracy of classification. Therefore, I prefer random forest to classification tree. I applied random forest to the testing dataset provided by Professor Leek and correctly predicted all the classifications.
 
