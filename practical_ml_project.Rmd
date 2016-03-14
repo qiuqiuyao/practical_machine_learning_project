@@ -1,0 +1,84 @@
+---
+title: "Practical Machine Learning Project"
+author: "Hanyao Qiu"
+date: "March 13, 2016"
+output: html_document
+---
+
+##Download and read data.
+###Load both training and testing data into R and specify the missing values. Check the dimensions of column names of both datasets.
+```{r}
+training<-read.csv("http://d396qusza40orc.cloudfront.net/predmachlearn/pml-training.csv",na.strings=c("NA",""))
+testing<-read.csv("http://d396qusza40orc.cloudfront.net/predmachlearn/pml-testing.csv",na.strings=c("NA",""))
+dim(training)
+dim(testing)
+```
+```{r, results='hide'}
+names(training)
+names(testing)
+```
+
+##Preprocess
+###First, we need to make sure that training and testing datasets have identical column names. 
+```{r}
+all.equal(colnames(training)[1:dim(training)[2]-1],colnames(testing)[1:dim(testing)[2]-1])
+```
+
+###According to the study , the first seven variables are irrelevant to the current analysis. Therefore, I remove the first seven variables from the original dataset.
+```{r}
+trainingSub<-training[,-c(1:7)]
+testingSub<-testing[,-c(1:7)]
+```
+
+###Divide the original training dataset further into one training and one testing dataset. This new training data will be used to train the algorithm which will then be applied to the new testing data.
+```{r}
+library(caret)
+indexTrain<-createDataPartition(y=trainingSub$classe,p=0.6,list=FALSE)
+mytrain<-trainingSub[indexTrain,]
+mytest<-trainingSub[-indexTrain,]
+dim(mytrain)
+dim(mytest)
+```
+
+###Remove the columns with missing values from the original training dataset. 
+```{r}
+mytrainCmplt<-mytrain[,colSums(is.na(mytrain))==0]
+mytestCmplt<-mytest[,names(mytest) %in% names(mytrainCmplt)]
+testingCmplt<-testingSub[,names(testingSub) %in% names(mytrainCmplt)]
+testingCmplt<-cbind(testingCmplt,testingSub[,153])
+colnames(testingCmplt)[53]<-"classe"
+```
+
+###Check to see whether there are any variables that have variance close to zero. If so, remove them from the training dataset. The following results demonstrate there are no such variables in the training dataset.
+```{r}
+nearzv<-nearZeroVar(mytrainCmplt,saveMetrics=TRUE)
+sum(nearzv$nzv)
+```
+
+##Evaluation
+###Classification tree
+```{r}
+set.seed(123)
+modFit1<-train(classe~.,method="rpart",data=mytrainCmplt)
+print(modFit1$finalModel)
+predtree<-predict(modFit1,newdata=mytestCmplt)
+confusionMatrix(predtree,mytestCmplt$classe)
+```
+
+The accuracy is low around 0.5 suggesting classification tree is not a desirable algorithm in this case.
+
+
+###Random forest
+```{r,cache=TRUE}
+set.seed(234)
+library(randomForest)
+modFit2<-randomForest(classe~.,data=mytrainCmplt)
+predrf<-predict(modFit2,newdata=mytestCmplt,type="class")
+confusionMatrix(predrf,mytestCmplt$classe)
+```
+
+Using random forest, I obtain a high accuracy of classification (0.9958). Therefore, I prefer random forest to classification tree.
+
+##Run random forest against the original testing dataset.
+print(predict(modFit2,newdata=testingCmplt))
+
